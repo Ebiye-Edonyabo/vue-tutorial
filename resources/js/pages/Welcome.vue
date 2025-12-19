@@ -1,46 +1,83 @@
 <script setup>
     import { ref } from 'vue';
 
-    const age = ref(20);
+    const props = defineProps({
+        names: Array,
+        age: Number,
+    });
 
-    const gender = ref('Male');
+    const units = ref(4);
+
+    const form = ref({
+        id: null,
+        name: null,
+        class: null,
+        term: null,
+    });
+
+    function addName(){
+        const newName = {
+            id: form.value.id,
+            name: form.value.name,
+        };
+
+        props.names.push(newName);
+    }
+
+    const lists = ref([
+        { class: 1, term: 'third'}
+    ]);
+
+    function addDetail(){
+        const newDetail = {
+            class: form.value.class,
+            term: form.value.term,
+        };
+
+         lists.value.push(newDetail);
+    }
+
 
 </script>
 
 <template>
 
-    <main class="max-w-lg w-full mx-auto h-80 bg-black text-white flex flex-col items-center justify-center mt-15">
+    <main class="max-w-lg w-full mx-auto  bg-black text-white flex flex-col items-center justify-center mt-15">
         
         <div>
-            <h1> {{ gender }}</h1>
-            <h1> {{ age }}</h1>
-
-            <img :src="image" alt="">
-        </div>
-        
-        <div>
-            <h1>Vue Directives</h1>
+            <h1>Vue Form</h1>
             <ul>
-                <!-- <li>v-bind</li>
-                <li>v-if</li>
-                <li>v-else-if</li>
-                <li>v-else</li>
-                <li>v-show</li> -->
-                <li>v-for</li>
-                <li>v-on</li>
+                <li></li>
             </ul>
 
-            <!-- <div>
-                <h2 v-if="age == 20"> My name in Mary </h2>
-                <h2 v-else-if="age == 0"> My name in John </h2>
-                <h2 v-else> My name in James </h2>
-            </div>
+            <form  class="space-y-5 flex flex-col" v-on:submit.prevent="addName">
 
-            <h2 v-show="age == 20"> My name in Wisdom </h2> -->
 
-            <!-- <ul class="mt-3">
-                <li v-for="n in names" :key="n.id"> {{ n.name }}</li>
-            </ul> -->
+                <input type="text" placeholder="enter first name" v-model="form.id" class="bg-gray-200 text-black border border-gra-300 rounded p-1" />
+                <input type="text" placeholder="enter last name" v-model="form.name" class="bg-gray-200 text-black border border-gra-300 rounded p-1" />
+                <!-- <input type="text" placeholder="enter gender" v-model="form.gender" class="bg-gray-200 text-black border border-gra-300 rounded p-1" /> -->
+
+                <button type="submit" class="bg-blue-400 text-white px-3 py-1.5 rounded">Submit</button>
+            </form>
+
+            <ul>
+                <li v-for="name in props.names">{{ name.id }} {{ name.name}}</li>
+            </ul>
+
+            <form  class="space-y-5 flex flex-col" v-on:submit.prevent="addDetail">
+
+
+                <input type="text" placeholder="enter first name" v-model="form.class" class="bg-gray-200 text-black border border-gra-300 rounded p-1" />
+                <input type="text" placeholder="enter last name" v-model="form.term" class="bg-gray-200 text-black border border-gra-300 rounded p-1" />
+
+                <button type="submit" class="bg-blue-400 text-white px-3 py-1.5 rounded">Submit</button>
+            </form>
+
+            <ul>
+                <li v-for="list in lists">{{ list.class }} {{ list.term}}</li>
+            </ul>
+
+
 
         </div>
       

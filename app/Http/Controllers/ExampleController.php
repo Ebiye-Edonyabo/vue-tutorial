@@ -1,17 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\User;
 use Inertia\Inertia;
+use Illuminate\Http\Request;
 
 class ExampleController extends Controller
 {
     public function index() {
         
-        $names = [
-            ['id' => 1, 'name' =>'John'],
-            ['id' => 2, 'name' =>'Mary'],
-            ['id' => 3, 'name' =>'James'],
-        ];
+        $names = User::all();
 
         $age = 5 ;
 
@@ -21,4 +20,20 @@ class ExampleController extends Controller
         ]);
     }
   
+    public function store(Request $request) {
+
+        $validate = $request->validate([
+            'name' => ['required', 'string'],
+            'email' => ['required', 'email'],
+            'password' => ['required', 'string']
+        ]);
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password
+       ]);
+
+        return Inertia::render('Welcome');
+    }
 }

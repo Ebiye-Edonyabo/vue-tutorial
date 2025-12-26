@@ -34,6 +34,6 @@ class ExampleController extends Controller
             'password' => $request->password
        ]);
 
-        return redirect()->route('home');;
+        return to_route('home');
     }
 }

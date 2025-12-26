@@ -30,11 +30,11 @@ import { ref } from 'vue';
     // }
 
     function store() {
-        form.post('/store'), {
-            onSuccess: (res) => {
+        form.post('/store', {
+            onSuccess: () => {
                 form.reset();
-            }
-        }
+            },
+        });
     }
 
 
@@ -44,12 +44,12 @@ import { ref } from 'vue';
 
 <template>
 
-    <main class="max-w-lg w-full space-y-8 h-screen mx-auto  bg-black text-white flex flex-col items-center justify-center mt-15">
+    <main class="max-w-lg w-full space-y-8 h-screen mx-auto  bg-black text-white flex flex-col items-center justify-center">
         
         <div>
             <h1>Form</h1>
 
-            <form v-on:submit="store()" class="space-y-2">
+            <form @submit.prevent="store" class="space-y-2">
                 <div class="flex-col flex">
                     <input type="text" v-model="form.name" class="bg-gray-200 text-gray-800 rounded p-2" placeholder="enter name">
                     <span v-if="form.errors.name" class="text-red-400 text-xs"> {{ form.errors.name }}</span>

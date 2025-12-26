@@ -34,6 +34,6 @@ class ExampleController extends Controller
             'password' => $request->password
        ]);
 
-        return Inertia::render('Welcome');
+        return redirect()->route('home');;
     }
 }

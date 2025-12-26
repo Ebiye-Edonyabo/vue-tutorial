@@ -1,6 +1,7 @@
 <script setup>
+
     import { useForm } from '@inertiajs/vue3';
-import { ref } from 'vue';
+    import { ref } from 'vue';
 
     const props = defineProps({
         names: Array,
@@ -46,10 +47,12 @@ import { ref } from 'vue';
 
     <main class="max-w-lg w-full space-y-8 h-screen mx-auto  bg-black text-white flex flex-col items-center justify-center">
         
-        <div>
-            <h1>Form</h1>
-
+        <div class="space-y-8">
+           
             <form @submit.prevent="store" class="space-y-2">
+
+                <h1>Form</h1>
+
                 <div class="flex-col flex">
                     <input type="text" v-model="form.name" class="bg-gray-200 text-gray-800 rounded p-2" placeholder="enter name">
                     <span v-if="form.errors.name" class="text-red-400 text-xs"> {{ form.errors.name }}</span>
@@ -67,13 +70,12 @@ import { ref } from 'vue';
 
                 <button type="submit" class="px-3 py-1.5 bg-green-400 text-black">Submit</button>
             </form>
-        </div>
 
-        <div>
-            <ul>
+                
+            <ul class="grid grid-cols-3 gap-4 ">
                 <li v-for="name in props.names">{{ name.id }} {{ name.name}}</li>
             </ul>
-        </div>
+        </div> 
       
     </main>
 
